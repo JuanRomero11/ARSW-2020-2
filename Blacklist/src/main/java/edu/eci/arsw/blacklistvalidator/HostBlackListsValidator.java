@@ -6,6 +6,9 @@
 package edu.eci.arsw.blacklistvalidator;
 
 import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
+import edu.eci.arsw.threads.Search;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,27 +31,42 @@ public class HostBlackListsValidator {
      * NOT Trustworthy, and the list of the five blacklists returned.
      * @param ipaddress suspicious host's IP address.
      * @return  Blacklists numbers where the given host's IP address was found.
+     * @throws InterruptedException 
      */
-    public List<Integer> checkHost(String ipaddress){
+    public List<Integer> checkHost(String ipaddress,int n) throws InterruptedException{
+
+    	ArrayList<Search> hilos = new ArrayList<>();
+    	List<Integer> blackListOcurrences =  new LinkedList<>();
         
-        LinkedList<Integer> blackListOcurrences=new LinkedList<>();
-        
-        int ocurrencesCount=0;
+    	int ocurrencesCount=0;
         
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
         
         int checkedListsCount=0;
+        int listaDividida=0;
+        Search hilo;
         
-        for (int i=0;i<skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
-            checkedListsCount++;
-            
-            if (skds.isInBlackListServer(i, ipaddress)){
-                
-                blackListOcurrences.add(i);
-                
-                ocurrencesCount++;
-            }
+        if(n % 2 !=0) {
+        	n++;
         }
+        listaDividida = skds.getRegisteredServersCount() / n;
+        
+        for (int i=0;i<skds.getRegisteredServersCount() ;i+=listaDividida){
+            
+        	hilo= new Search(i,i+listaDividida,ipaddress);
+        	hilos.add(hilo);
+        	hilo.start();
+        }
+        
+        for (Search i: hilos) {
+        	i.join();
+        	ocurrencesCount+= i.getCantidad();
+        	checkedListsCount+= i.getServidoresUsados();
+        	for (Integer c: i.getServidoresBad()) {
+        		blackListOcurrences.add(c);
+        	}
+        }
+     
         
         if (ocurrencesCount>=BLACK_LIST_ALARM_COUNT){
             skds.reportAsNotTrustworthy(ipaddress);
@@ -59,7 +77,8 @@ public class HostBlackListsValidator {
         
         LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
         
-        return blackListOcurrences;
+        
+		return blackListOcurrences;
     }
     
     

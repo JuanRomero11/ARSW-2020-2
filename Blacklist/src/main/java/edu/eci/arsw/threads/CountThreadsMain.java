@@ -19,9 +19,11 @@ public class CountThreadsMain {
     	conteo2 = new CountThread(99,199);
     	conteo3 = new CountThread(200,299);
     	
-    	conteo1.run();
-    	conteo2.run();
-    	conteo3.run();
+    	conteo1.start();
+    	conteo2.start();
+    	conteo3.start();
+    	
+    	
         
     }
     
