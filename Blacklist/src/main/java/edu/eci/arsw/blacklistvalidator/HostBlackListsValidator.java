@@ -30,6 +30,7 @@ public class HostBlackListsValidator {
      * BLACK_LIST_ALARM_COUNT, the search is finished, the host reported as
      * NOT Trustworthy, and the list of the five blacklists returned.
      * @param ipaddress suspicious host's IP address.
+     * @param n #hilos papi
      * @return  Blacklists numbers where the given host's IP address was found.
      * @throws InterruptedException 
      */
