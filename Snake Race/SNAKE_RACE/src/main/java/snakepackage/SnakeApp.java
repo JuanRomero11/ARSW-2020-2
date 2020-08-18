@@ -2,9 +2,13 @@ package snakepackage;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import java.awt.Event.*;
 import enums.GridSize;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -34,9 +38,14 @@ public class SnakeApp {
         new Cell(3 * (GridSize.GRID_WIDTH / 2) / 2,
         GridSize.GRID_HEIGHT - 2)};
     private JFrame frame;
+    private JButton Play;
+    private JButton Pause;
+    private JButton Finish;
     private static Board board;
     int nr_selected = 0;
     Thread[] thread = new Thread[MAX_THREADS];
+    static boolean play,play2 = true;
+    int primermuerto=0;
 
     public SnakeApp() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -52,17 +61,23 @@ public class SnakeApp {
         
         
         frame.add(board,BorderLayout.CENTER);
-        
+        Play =new JButton("Play");
+        Pause =new JButton("Pause");
+        Finish =new JButton("Reanudar");
         JPanel actionsBPabel=new JPanel();
         actionsBPabel.setLayout(new FlowLayout());
-        actionsBPabel.add(new JButton("Action "));
+        actionsBPabel.add(Play);
+        actionsBPabel.add(Pause);
+        actionsBPabel.add(Finish);
         frame.add(actionsBPabel,BorderLayout.SOUTH);
 
     }
 
     public static void main(String[] args) {
         app = new SnakeApp();
+        app.prepareAcciones();
         app.init();
+        
     }
 
     private void init() {
@@ -74,22 +89,26 @@ public class SnakeApp {
             snakes[i] = new Snake(i + 1, spawn[i], i + 1);
             snakes[i].addObserver(board);
             thread[i] = new Thread(snakes[i]);
-            thread[i].start();
+            //thread[i].start();
         }
 
         frame.setVisible(true);
 
             
         while (true) {
-            int x = 0;
-            for (int i = 0; i != MAX_THREADS; i++) {
-                if (snakes[i].isSnakeEnd() == true) {
-                    x++;
-                }
-            }
-            if (x == MAX_THREADS) {
-                break;
-            }
+			int x = 0;
+			for (int i = 0; i != MAX_THREADS; i++) {
+				if (snakes[i].isSnakeEnd() == true) {
+					if (primermuerto == 0) {
+
+						primermuerto = snakes[i].getIdt();
+					}
+					x++;
+				}
+			}
+			if (x == MAX_THREADS) {
+				break;
+			}
         }
 
 
@@ -100,8 +119,73 @@ public class SnakeApp {
         
 
     }
+    public void prepareAcciones() {
+    	
+    	Play.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				play();
+				
+			}
+    	});
+    	Pause.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					pause();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+			}
+    	});
+    	Finish.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				reanudar();
+				
+			}
+    	});
+    }
 
-    public static SnakeApp getApp() {
+    protected void reanudar() {
+    	for (int i = 0; i != MAX_THREADS; i++) {
+    		snakes[i].setPause(false);
+            snakes[i].setRenau();
+         
+        }
+	}
+
+	public  void pause() throws InterruptedException {
+		
+            for (int i = 0; i != MAX_THREADS; i++) {
+                snakes[i].setPause(true);
+                System.out.println(thread[i].getState());
+            }
+            JOptionPane.showMessageDialog(null, "PAUSE"+ "\n\nLa serpiente mas larga es: "+mejor()[1]+" de tañano: "+ mejor()[0]+"\nLa primera en morir fue: "+primermuerto);
+           
+        }
+
+	private int[] mejor() {
+		int[] a = new int[2];
+		a[0] = 0;
+		for (int i = 0; i != MAX_THREADS; i++) {
+			if (a[0] < snakes[i].getBody().size()) {
+				a[0] = snakes[i].getBody().size();
+				a[1]= snakes[i].getIdt();
+			}
+
+		}
+		return a;
+	}
+
+	public void play() {
+		if(play2) {
+		for (int i = 0; i != MAX_THREADS; i++) {
+			thread[i].start();
+		}
+		play2=false;
+		}
+	}
+
+	public static SnakeApp getApp() {
         return app;
     }
 

@@ -20,7 +20,7 @@ public class Board extends JLabel implements Observer {
 	private static final long serialVersionUID = 1L;
 	public static final int NR_BARRIERS = 5;
 	public static final int NR_JUMP_PADS = 2;
-	public static final int NR_TURBO_BOOSTS = 2;
+	public static final int NR_TURBO_BOOSTS = 5;
 	public static final int NR_FOOD = 5;
 	static Cell[] food = new Cell[NR_FOOD];
 	static Cell[] barriers = new Cell[NR_BARRIERS];
@@ -32,8 +32,7 @@ public class Board extends JLabel implements Observer {
 
 	@SuppressWarnings("unused")
 	public Board() {
-		if ((NR_BARRIERS + NR_JUMP_PADS + NR_FOOD + NR_TURBO_BOOSTS) > GridSize.GRID_HEIGHT
-				* GridSize.GRID_WIDTH)
+		if ((NR_BARRIERS + NR_JUMP_PADS + NR_FOOD + NR_TURBO_BOOSTS) > GridSize.GRID_HEIGHT	* GridSize.GRID_WIDTH)
 			throw new IllegalArgumentException(); 
 		GenerateBoard();
 		GenerateFood();
@@ -181,7 +180,7 @@ public class Board extends JLabel implements Observer {
 		}
 	}
 
-	private void drawSnake(Graphics g) {
+	private  void drawSnake(Graphics g) {
 		for (int i = 0; i != SnakeApp.MAX_THREADS; i++) {
 			for (Cell p : SnakeApp.getApp().snakes[i].getBody()) {
 				if (p.equals(SnakeApp.getApp().snakes[i].getBody().peekFirst())) {
@@ -199,6 +198,7 @@ public class Board extends JLabel implements Observer {
 							GridSize.HEIGH_BOX);
 				}
 			}
+			
 		}
 
 	}
@@ -221,7 +221,6 @@ public class Board extends JLabel implements Observer {
 
 	}
 
-	@Override
 	public void update(Observable arg0, Object arg1) {
 		repaint();
 	}
