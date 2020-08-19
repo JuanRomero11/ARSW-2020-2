@@ -9,7 +9,7 @@ Run(): siejecutamos run() cada hilo espera a que termine el anterior ya que la e
 
 parte 3:
 
-calcuo de tiempo con diferentes pruebas.
+calculo de tiempo con diferentes pruebas.
 
 
 1) 1 hilo: 65179 milisegundos = 1.0863167 minutos
