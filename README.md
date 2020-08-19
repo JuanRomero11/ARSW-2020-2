@@ -47,16 +47,23 @@ The strategy of parallelism previously implemented is inefficient in certain cas
 ### Part IV - Performance Evaluation
 From the above, implement the following sequence of experiments to perform the validation of dispersed IP addresses (for example 202.24.34.55), taking the execution times of them (be sure to do them on the same machine):
   1. A single thread. 
+  ![alt text](https://github.com/JuanRomero11/ARSW-2020-2/blob/master/images/1.PNG)
   
   2. As many threads as processing cores (have the program determine this using the Runtime API). 
+  ![alt text](https://github.com/JuanRomero11/ARSW-2020-2/blob/master/images/2.PNG)
   
   3. As many threads as twice the number of processing cores. 
+  ![alt text](https://github.com/JuanRomero11/ARSW-2020-2/blob/master/images/3.PNG)
   
   4. 50 threads 
+  ![alt text](https://github.com/JuanRomero11/ARSW-2020-2/blob/master/images/4.PNG)
   
   5. 100 threads
-
+  ![alt text](https://github.com/JuanRomero11/ARSW-2020-2/blob/master/images/5.PNG)
+  
 With the above, and with the given execution times, make a graph of solution time vs. Number of threads. Analyze and hypothesize with your partner for the following questions (you can take into account what was reported by jVisualVM):
+
+  ![alt text](https://github.com/JuanRomero11/ARSW-2020-2/blob/master/images/6.PNG)
 
 - According to Amdahls law, where S(n) is the theoretical improvement of performance, P the parallel fraction of the algorithm, and n the number of threads, the greater n, the better this improvement should be. Why is the best performance not achieved with the 500 threads? How is this performance compared when using 200 ?.
 
