@@ -11,6 +11,7 @@ parte 3:
 
 calcuo de tiempo con diferentes pruebas.
 
+
 1) 1 hilo: 65179 milisegundos = 1.0863167 minutos
 2) tantos subprocesos como nucleos en el pc (hay 4 nueclos): 32594 milisegundos = 0.54323333 minutos
 3) tantos hilos como el doble de nucleos (8): 16465 milisegundos = 0.27441667 minutos
