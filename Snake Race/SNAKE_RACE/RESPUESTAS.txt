@@ -1,0 +1,22 @@
+2. Condiciones de carrera: 
+
+  2.1 En ele momento en que las cabezas de las serpientes tratan de acceder alguna celda con comida, turbo, pared o alguna flecha, puede surgir un error debido a la concurrencia
+  entre los hilos
+  2.2 Uso inadecuado de colecciones: El cuerpo de las serpientes tiene que manejarse con una coleccion concurrente
+  2.3. Uso innecesario de esperas activas: El juego deberia terminar cuando todas las serpienter mueres y este se sigue ejecutan
+  
+Solucion 2.1 :
+
+Se tiene que realizar la sincronizacion de las colecciones que contienen las celdas de cada item.
+
+Solucion 2.2:
+
+Hacer uso de la coleccion ConcurrentList para el cuerpo de las serpiente ya que una celda no puede tener dos cabezas de una serpiente
+
+Solucion 2.3:
+
+Se tiene que realizar botones que le den inicio, pausa, reanudar teniendo en cuenta las muertes de todas las serpientes, esto quiere decir en el momento de que mueran todas 
+las serpientes debe parar la ejecucion.
+
+
+                                  
