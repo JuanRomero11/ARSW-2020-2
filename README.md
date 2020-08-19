@@ -85,7 +85,7 @@ According to the above, if for this problem instead of 100 threads in a single C
 
 - Al momento de correr 100 hilos, se espera que el tiempo de ejecucion sea mucho mejor pero al analizar detalladamente observabamos que el tiempo de ejecucion se ve afectado a la hora de juntar las multiples de respuestas.
 
-## 🐍 Snake Race 
+## Snake Race 
  
  ### Part 1
 ontrol threads using wait/notify.
@@ -110,16 +110,17 @@ calculo de tiempo con diferentes pruebas.
 
 ### Part 3
 
-Analyse the code in order to understand how the threads are being used to create an autonomous behavior in the N snakes
-Accordingly, and using the game logic, identify and write clearly (ANSWERS.txt file)
-Possible race conditions
-An incorrect or inappropriate use of collections, considering its concurrent handling(For this increase the game speed and execute it multiples times until an error has been raised).
-Unnecessary use of active waits
-Identify critical regions associated with race conditions, and do something in order to eliminate them.Note that you have to synchronize strictly needed. In the answers document suggest the solution proposed for each item of the point 2. As the same way note that you don´t have to add more race conditions
-As you can see, the game is incomplete. Write code in order to implement functionallities through buttons in the GUI to start / Pause / Resume the game: start the game if it has not started, Pause the game if it is on, Resume the game if it is suspended. Keep in mind:
-When the game has been paused, in some point of the screen you have to show 
-the longest snake
-The worst snake:(the first snake  dead)
+1. Analyse the code in order to understand how the threads are being used to create an autonomous behavior in the N snakes
+2. Accordingly, and using the game logic, identify and write clearly (ANSWERS.txt file)
+- Possible race conditions
+- An incorrect or inappropriate use of collections, considering its concurrent handling(For this increase the game speed and execute it multiples times until an error has been raised).
+- Unnecessary use of active waits
+3. Identify critical regions associated with race conditions, and do something in order to eliminate them.Note that you have to synchronize strictly needed. In the answers document suggest the solution proposed for each item of the point 2. As the same way note that you don´t have to add more race conditions
+4. As you can see, the game is incomplete. Write code in order to implement functionallities through buttons in the GUI to start / Pause / Resume the game: start the game if it has not started, Pause the game if it is on, Resume the game if it is suspended. Keep in mind:
+- When the game has been paused, in some point of the screen you have to show 
+    - the longest snake
+    - The worst snake:(the first snake  dead)
+
 Remember that the pause of the snakes are not instantanious, and you have to guarantee that all the information showed is consistent
 
 
