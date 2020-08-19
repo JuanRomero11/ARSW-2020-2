@@ -124,4 +124,4 @@ calculo de tiempo con diferentes pruebas.
 Remember that the pause of the snakes are not instantanious, and you have to guarantee that all the information showed is consistent
 
 
-
+#### RESPUESTAS PARTE3 https://github.com/JuanRomero11/ARSW-2020-2/blob/master/Snake%20Race/SNAKE_RACE/RESPUESTAS.txt
